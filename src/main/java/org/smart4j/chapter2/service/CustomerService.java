@@ -26,6 +26,10 @@ public class CustomerService {
         List<Customer> customerList = new ArrayList<Customer>();
         try {
             String sql = "SELECT * from customer";
+            /*添加DbUtils后，需要在此创建连接*/
+            conn = DatabaseHelper.getConnection();
+            return DatabaseHelper.queryEntityList(Customer.class,conn,sql);
+/*            添加DbUtils后，可简化以下代码
             conn = DatabaseHelper.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -38,13 +42,13 @@ public class CustomerService {
                 customer.setEmail(rs.getString("email"));
                 customer.setRemark(rs.getString("remark"));
                 customerList.add(customer);
-            }
-        } catch (SQLException e) {
+            }*/
+        } /*catch (SQLException e) {
             LOGGER.error("execute sql failure", e);
-        } finally {
+        }*/ finally {
             DatabaseHelper.closeConnection(conn);
         }
-        return customerList;
+        /*return customerList;*/
     }
 
     /**
