@@ -22,13 +22,16 @@ public class CustomerService {
      * 获取客户列表
      */
     public List<Customer> getCustomerList() {
-        Connection conn = null;
-        List<Customer> customerList = new ArrayList<Customer>();
-        try {
+        //此处使用了ThreadLocal后，获取连接被隐藏
+        /* Connection conn = null;
+        List<Customer> customerList = new ArrayList<Customer>();*/
+        /*try {*/
             String sql = "SELECT * from customer";
             /*添加DbUtils后，需要在此创建连接*/
-            conn = DatabaseHelper.getConnection();
-            return DatabaseHelper.queryEntityList(Customer.class,conn,sql);
+            //此处使用了ThreadLocal后，获取连接被隐藏，无需创建了
+            /*conn = DatabaseHelper.getConnection();*/
+            //conn无需传递//
+            return DatabaseHelper.queryEntityList(Customer.class,/*conn,*/sql);
 /*            添加DbUtils后，可简化以下代码
             conn = DatabaseHelper.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -43,11 +46,11 @@ public class CustomerService {
                 customer.setRemark(rs.getString("remark"));
                 customerList.add(customer);
             }*/
-        } /*catch (SQLException e) {
+       /* }*/ /*catch (SQLException e) {
             LOGGER.error("execute sql failure", e);
-        }*/ finally {
+        }*/ /*finally {
             DatabaseHelper.closeConnection(conn);
-        }
+        }*/
         /*return customerList;*/
     }
 

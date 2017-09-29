@@ -92,9 +92,10 @@ public final class DatabaseHelper {
     /**
      * 查询实体列表
      */
-    public static <T> List<T> queryEntityList(Class<T> entityClass,Connection conn, String sql, Object...params){
+    public static <T> List<T> queryEntityList(Class<T> entityClass,/*Connection conn,*/ String sql, Object...params){
         List<T> entityList;
         try {
+            Connection conn = getConnection();
             entityList = QUERY_RUNNER.query(conn, sql, new BeanListHandler<T>(entityClass), params);
         }catch (SQLException e){
             LOGGER.error("query entity list failure",e);
