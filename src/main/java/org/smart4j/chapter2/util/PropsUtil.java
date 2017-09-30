@@ -46,7 +46,6 @@ public final class PropsUtil {
      * 获取字符型属性(默认值为空字符串)
      */
     public static String getString(Properties props,String key){
-        //TODO getString(props,key,"");
         return getString(props,key,"");
     }
 
